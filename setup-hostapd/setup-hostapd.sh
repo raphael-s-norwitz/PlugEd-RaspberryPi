@@ -55,9 +55,13 @@ numdhcprtwo=$(grep -n $dhcpreptwo $dhcpconf | awk -F: 'NR==1{print $1}')
 numdhcprthree=$(grep -n $dhcprepthree $dhcpconf | awk -F: 'NR==1{print $1}') 
 
 # replace lines
-sed -i '$numdhcprones/.*/$dhcpreponeto' $dhcpconf
-sed -i '$numdhcprtwos/.*/$dhcpreptwoto' $dhcpconf
-sed -i '$numdhcprthrees/.*/$dhcprepthreeto' $dhcpconf
+sed -i '/$numdhcprone/c/$dhcpreponeto' $dhcpconf
+sed -i '/$numdhcprtwo/c/$dhcpreptwoto' $dhcpconf
+sed -i '/$numdhcprthree/c/$dhcprepthreeto' $dhcpconf
+
+# append subnet to dhcpd.conf
+cat dhcp_subnet.txt >> $dhcpconf
+
 # First run checks
 
 
