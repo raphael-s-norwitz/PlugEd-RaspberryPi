@@ -23,16 +23,16 @@ if [ "$priv" != "root" ]; then
 fi
 
 # update system
-#apt-get update -y
+apt-get update -y
 # install dependencies
-#apt-get install -y hostapd isc-dhcp-server
+apt-get install -y hostapd isc-dhcp-server
 # CHECK THIS (may not work out the box)
-#apt-get install -yes -force-yes iptables-persistent
+apt-get install -yes -force-yes iptables-persistent
 
 # fix dhcp configuration file
 
 # first backup dhcp conf 
-#cp $dhcpconf $dhcpconf.bak
+cp $dhcpconf $dhcpconf.bak
 
 # these lines need to be swapped out from default configs
 dhcprepone="option domain-name \"example.org\";"
@@ -70,7 +70,7 @@ rm $dhcpconftmp
 
 
 # append subnet to dhcpd.conf
-#cat dhcp_subnet.txt >> $dhcpconf
+cat dhcp_subnet.txt >> $dhcpconf
 
 # First run checks
 
