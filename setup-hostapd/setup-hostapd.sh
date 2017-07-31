@@ -41,14 +41,6 @@ sysctlconfbak="$sysctlconf.bak"
 dhcpconftemplate="./templates/dhcp_subnet.txt"
 hostapdconftemplate="./templates/hostapdconf.txt"
 
-# backup dhcp configurations
-cp $dhcpconf $dhcpconf.bak
-cp $iscdhcpconf $iscdhcpconfbak
-cp $netconf $netconfbak
-cp $defaulthostapd $defaulthostapdbak
-cp $initdconf $initdconfbak
-cp $sysctlconf $sysctlconfbak
-
 # check user privaleges
 priv=$(whoami)
 if [ "$priv" != "root" ]; then
@@ -61,7 +53,16 @@ apt-get update -y
 # install dependencies
 apt-get install -y hostapd isc-dhcp-server
 # CHECK THIS (may not work out the box)
-apt-get install --force-yes iptables-persistent
+apt-get install -y --force-yes iptables-persistent
+
+# backup dhcp configurations
+cp $dhcpconf $dhcpconf.bak
+cp $iscdhcpconf $iscdhcpconfbak
+cp $netconf $netconfbak
+cp $defaulthostapd $defaulthostapdbak
+cp $initdconf $initdconfbak
+cp $sysctlconf $sysctlconfbak
+
 
 
 # swap lines for dhcp
