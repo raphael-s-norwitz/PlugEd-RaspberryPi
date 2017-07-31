@@ -11,6 +11,9 @@ apinterface="wlan0"
 frominterface="eth0"
 apipaddr="192.168.42.1"
 apnetmask="255.255.255.0"
+apssid="Pluged_AP"
+appass="Plugedza"
+apcountry="US"
 
 
 # manual instructions
@@ -20,17 +23,27 @@ instructions="https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberr
 dhcpconf="/etc/dhcp/dhcpd.conf"
 iscdhcpconf="/etc/default/isc-dhcp-server"
 netconf="/etc/network/interfaces"
+hostapdconf="/etc/hostapd/hostapd.conf"
+defaulthostapd="/etc/default/hostapd.conf"
+initdconf="/etc/init.d/hostapd"
+sysctlconf="/etc/sysctl.conf"
 
 # create backups
 dhcpconfbak="$dhcpconf.bak"
 iscdhcpconfbak="$iscdhcpconf.bak"
 netconfbak="$netconf.bak"
+hostapdconfbak="$hostapdconf.bak"
+defaulthostapdbak="$defaulthostapdbak"
+initdconfbak="$initdconf.bak"
+sysctlconfbak="$sysctlconf.bak"
 
 # backup dhcp configurations
 # cp $dhcpconf $dhcpconf.bak
 # cp $iscdhcpconf $iscdhcpconfbak
 # cp $netconf $netconfbak
-
+# cp $defaulthostapd $defaulthostapdbak
+# cp $initdconf $initdconfbak
+# cp $sysctlconf $sysctlconfbak
 
 # Check key info
 
@@ -38,7 +51,7 @@ netconfbak="$netconf.bak"
 priv=$(whoami)
 #echo "$priv"
 if [ "$priv" != "root" ]; then
-	echo "This script must be run as root"
+	echo "This script must be run as rvoot"
 	exit
 fi
 
@@ -194,9 +207,6 @@ prepend_everything_after () {
 
 
 
-
-
-
 # replace lines from dhcp conf
 # replace_line_string $dhcprepone $dhcpconf $dhcprepone
 # replace_line_string $dhcpreptwo $dhcpconf $dhcpreptwo
@@ -237,5 +247,41 @@ echo "allow-hotplug $apinterface" >> $netconf
 echo "iface $apinterface inet static" >> $netconf
 echo " address $apipaddr" >> $netconf
 echo " netmast $apnetmast" >> $netconf
-echo ---
 
+# set up interface
+sudo ifconfig $apinterface $apipaddr
+
+# add hostapd configuration file
+cat hostapdconf.txt > $hostapdconf
+
+replace_line_string interface= $hostapdconf interface=$apinterface
+replace_line_string ssid= $hostapdconf ssid=$apssid
+replace_line_string wpa-passphrase= $hostapdconf wpa-passphrase=$appass
+replace_line_string country= $hostapdconf country=$apcountry
+
+# fix default hostapd
+replace_line_string \#DAEMON_CONF= $defaulthostapd DAEMON_CONF="$hostapdconf"
+
+# add hostapd conf to init.d
+replace_line_String DAEMON_CONF= $initdconf DAEMON_CONF=$hostapdconf
+
+# enable forwarding
+echo "net.ipv4.ip_forward=1" >> $sysctlconf
+
+# set up forwarding immidiately
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward "
+
+# set up iptables
+sudo iptables -t nat -A POSTROUTING -o $frominterface -j MASQUERADE
+sudo iptables -A FORWARD -i $frominterface -o $apinterface -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i $apinterface -o $frominterface -j ACCEPT
+
+# display iptables
+# sudo iptables -t nat -S
+# sudo iptables -S
+
+# save iptables state
+sudo sh -c "iptables-save > /etc/iptables/rules.v4"
+
+# remove wpa-supplicant
+# sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/
