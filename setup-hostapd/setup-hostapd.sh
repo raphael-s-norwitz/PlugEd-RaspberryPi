@@ -37,13 +37,17 @@ defaulthostapdbak="$defaulthostapdbak"
 initdconfbak="$initdconf.bak"
 sysctlconfbak="$sysctlconf.bak"
 
+# templates
+dhcpconftemplate="./templates/dhcp_subnet.txt"
+hostapdconftemplate="./templates/hostapdconf.txt"
+
 # backup dhcp configurations
-# cp $dhcpconf $dhcpconf.bak
-# cp $iscdhcpconf $iscdhcpconfbak
-# cp $netconf $netconfbak
-# cp $defaulthostapd $defaulthostapdbak
-# cp $initdconf $initdconfbak
-# cp $sysctlconf $sysctlconfbak
+cp $dhcpconf $dhcpconf.bak
+cp $iscdhcpconf $iscdhcpconfbak
+cp $netconf $netconfbak
+cp $defaulthostapd $defaulthostapdbak
+cp $initdconf $initdconfbak
+cp $sysctlconf $sysctlconfbak
 
 # Check key info
 
@@ -56,15 +60,12 @@ if [ "$priv" != "root" ]; then
 fi
 
 # update system
-# apt-get update -y
+apt-get update -y
 # install dependencies
-# apt-get install -y hostapd isc-dhcp-server
+apt-get install -y hostapd isc-dhcp-server
 # CHECK THIS (may not work out the box)
-# apt-get install -yes -force-yes iptables-persistent
+apt-get install -yes -force-yes iptables-persistent
 
-# fix dhcp configuration file
-
-# first backup dhcp conf 
 
 # these lines need to be swapped out from default configs
 dhcprepone="option domain-name \"example.org\";"
@@ -76,12 +77,12 @@ dhcpreptwoto="#$dhcpreptwo"
 dhcprepthree="#authoritative"
 dhcprepthreeto="authoritative"
 
-echo "$dhcprepone"
-echo "$dhcpreponeto"
-echo "$dhcpreptwo"
-echo "$dhcpreptwoto"
-echo "$dhcprepthree"
-echo "$dhcprepthreeto"
+# echo "$dhcprepone"
+# echo "$dhcpreponeto"
+# echo "$dhcpreptwo"
+# echo "$dhcpreptwoto"
+# echo "$dhcprepthree"
+# echo "$dhcprepthreeto"
 
 
 iscdhcprep="INTERFACES=\"\""
@@ -208,35 +209,18 @@ prepend_everything_after () {
 
 
 # replace lines from dhcp conf
-# replace_line_string $dhcprepone $dhcpconf $dhcprepone
-# replace_line_string $dhcpreptwo $dhcpconf $dhcpreptwo
-# replace_line_string $dhcprepthree $dhcpconf $dhcprepthree
+replace_line_string $dhcprepone $dhcpconf $dhcprepone
+replace_line_string $dhcpreptwo $dhcpconf $dhcpreptwo
+replace_line_string $dhcprepthree $dhcpconf $dhcprepthree
 
 # append subnet to dhcpd.conf
-# cat dhcp_subnet.txt >> $dhcpconf
-
-# test replace line function
-# replace_line_string newline ./test.txt works
-# replace_line_string works ./test.txt newline
+cat $dhcpconftemplate >> $dhcpconf
 
 # add configurations to isc-dhcp-server
-# replace_line_string $iscdhcprep $iscdhcpconf $iscdhcprepto
+replace_line_string $iscdhcprep $iscdhcpconf $iscdhcprepto
 
 # take wi-fi down
-# sudo ifdown $apinterface
-
-
-# test get line and prepend functions
-#linez=$(get_line second ./test.txt)
-#echo $linez
-# echo "---"
-#cat ./test.txt
-#echo "---"
-#prepend_line ./test.txt $linez \#
-#cat ./test.txt
-#echo "---"
-#prepend_everything_after ./test.txt $linez \#
-#cat ./test.txt
+sudo ifdown $apinterface
 
 
 # edit network interfaces
@@ -252,7 +236,7 @@ echo " netmast $apnetmast" >> $netconf
 sudo ifconfig $apinterface $apipaddr
 
 # add hostapd configuration file
-cat hostapdconf.txt > $hostapdconf
+cat $hostapdconftemplate > $hostapdconf
 
 replace_line_string interface= $hostapdconf interface=$apinterface
 replace_line_string ssid= $hostapdconf ssid=$apssid
@@ -276,7 +260,7 @@ sudo iptables -t nat -A POSTROUTING -o $frominterface -j MASQUERADE
 sudo iptables -A FORWARD -i $frominterface -o $apinterface -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -i $apinterface -o $frominterface -j ACCEPT
 
-# display iptables
+# display iptables (no real need to do this)
 # sudo iptables -t nat -S
 # sudo iptables -S
 
