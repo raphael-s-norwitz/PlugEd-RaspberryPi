@@ -11,3 +11,6 @@ fi
 
 git config --global user.name "$1 $2"
 git config --global user.email "$3"
+
+echo "Remember to enable SSH!!"
+echo "run 'sudo raspi-config' then see Interfacing Options"
