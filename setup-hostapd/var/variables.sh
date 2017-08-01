@@ -25,4 +25,8 @@ defaulthostapd="/etc/default/hostapd"
 initdconf="/etc/init.d/hostapd"
 sysctlconf="/etc/sysctl.conf"
 
+# templates
+dhcpconftemplate="../templates/dhcp_subnet.txt"
+hostapdconftemplate="../templates/hostapdconf.txt"
+
 

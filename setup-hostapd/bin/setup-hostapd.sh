@@ -47,8 +47,8 @@ initdconfbak="$initdconf.bak"
 sysctlconfbak="$sysctlconf.bak"
 
 # templates
-dhcpconftemplate="./templates/dhcp_subnet.txt"
-hostapdconftemplate="./templates/hostapdconf.txt"
+#dhcpconftemplate="../templates/dhcp_subnet.txt"
+#hostapdconftemplate="../templates/hostapdconf.txt"
 
 # check user privaleges
 priv=$(whoami)

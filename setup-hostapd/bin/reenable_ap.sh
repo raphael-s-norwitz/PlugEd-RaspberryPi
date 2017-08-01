@@ -11,3 +11,6 @@ replace_line_string "auto $apinterface" $netconf "\#auto $apinterface"
 replace_line_string "iface $apinterface inet dhcp" $netconf "iface $apinterface inet static"
 replace_line_string "	wpa-ssid \"$secssid\"" $netconf " address $apipaddr"
 replace_line_string "	wpa-psk \"$secpassword\"" $netconf " netmask $apnetmask"
+
+# if you were getting rid of wpa-supplicant, get rid of it again
+# sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/
