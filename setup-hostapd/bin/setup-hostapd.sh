@@ -12,31 +12,6 @@
 #  email: raphael.s.norwitz@gmail.com
 #  github:raphael-s-norwitz
 
-# args
-#apinterface="wlan0"
-#seciface="wlan1"
-#frominterface="eth0"
-#apipaddr="192.168.42.1"
-#apnetmask="255.255.255.0"
-#apssid="Pluged_AP"
-#appass="Plugedza"
-#apcountry="US"
-
-#secssid="name_of_access_point"
-#secpassword="passwordforssid"
-
-# manual instructions
-#instructions="https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi-access-point.pdf"
-
-# modified files
-#dhcpconf="/etc/dhcp/dhcpd.conf"
-#iscdhcpconf="/etc/default/isc-dhcp-server"
-#netconf="/etc/network/interfaces"
-#hostapdconf="/etc/hostapd/hostapd.conf"
-#defaulthostapd="/etc/default/hostapd"
-#initdconf="/etc/init.d/hostapd"
-#sysctlconf="/etc/sysctl.conf"
-
 echo "This script sets up hostapd on a Raspberry pi 3. May work on other platforms too but no promises"
 echo "For more detailed instructions see: $instructions"
 sleep 1
@@ -51,10 +26,6 @@ hostapdconfbak="$hostapdconf.bak"
 defaulthostapdbak="$defaulthostapd.bak"
 initdconfbak="$initdconf.bak"
 sysctlconfbak="$sysctlconf.bak"
-
-# templates
-#dhcpconftemplate="../templates/dhcp_subnet.txt"
-#hostapdconftemplate="../templates/hostapdconf.txt"
 
 # check user privaleges
 priv=$(whoami)
@@ -113,7 +84,7 @@ intfacenetline=$(get_line $apinterface $netconf)
 prepend_everything_after $netconf $intfacenetline \#
 
 echo "allow-hotplug $apinterface" >> $netconf
-echo "\#auto $apinterface" >> $netconf
+echo "#auto $apinterface" >> $netconf
 echo "iface $apinterface inet static" >> $netconf
 echo " address $apipaddr" >> $netconf
 echo " netmask $apnetmask" >> $netconf
@@ -123,7 +94,7 @@ echo "allow-hotplug $seciface" >> $netconf
 echo "auto $seciface" >> $netconf 
 echo "iface $seciface inet dhcp" >> $netconf
 echo "	wpa-ssid \"$secssid\"" >> $netconf
-echo "	wpa-psk \"$secpassword\""
+echo "	wpa-psk \"$secpassword\"" >> $netconf
 
 # set up interface
 sudo ifconfig $apinterface $apipaddr
@@ -163,6 +134,6 @@ sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 # remove wpa-supplicant
 # sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/
 echo "Hostapd should be setup!"
-echo "Now run \"sudo reboot\" to reboot you'll machine"
+echo "Now run \"sudo reboot\" to reboot the machine"
 echo "After reboot, you should see the access point: $apssid"
 echo "And be able to associate with it with password $appass"
