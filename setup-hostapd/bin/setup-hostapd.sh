@@ -3,6 +3,9 @@
 # import functions
 . ../functions/functions.sh
 
+# import key variables
+. ../var/variables.sh
+
 # this script automates the setup process for hostapd on a raspberry pi 3
 
 # @author Raphael Norwitz 
@@ -10,25 +13,29 @@
 #  github:raphael-s-norwitz
 
 # args
-apinterface="wlan0"
-frominterface="eth0"
-apipaddr="192.168.42.1"
-apnetmask="255.255.255.0"
-apssid="Pluged_AP"
-appass="Plugedza"
-apcountry="US"
+#apinterface="wlan0"
+#seciface="wlan1"
+#frominterface="eth0"
+#apipaddr="192.168.42.1"
+#apnetmask="255.255.255.0"
+#apssid="Pluged_AP"
+#appass="Plugedza"
+#apcountry="US"
+
+#secssid="name_of_access_point"
+#secpassword="passwordforssid"
 
 # manual instructions
-instructions="https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi-access-point.pdf"
+#instructions="https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi-access-point.pdf"
 
 # modified files
-dhcpconf="/etc/dhcp/dhcpd.conf"
-iscdhcpconf="/etc/default/isc-dhcp-server"
-netconf="/etc/network/interfaces"
-hostapdconf="/etc/hostapd/hostapd.conf"
-defaulthostapd="/etc/default/hostapd"
-initdconf="/etc/init.d/hostapd"
-sysctlconf="/etc/sysctl.conf"
+#dhcpconf="/etc/dhcp/dhcpd.conf"
+#iscdhcpconf="/etc/default/isc-dhcp-server"
+#netconf="/etc/network/interfaces"
+#hostapdconf="/etc/hostapd/hostapd.conf"
+#defaulthostapd="/etc/default/hostapd"
+#initdconf="/etc/init.d/hostapd"
+#sysctlconf="/etc/sysctl.conf"
 
 # create backups
 dhcpconfbak="$dhcpconf.bak"
@@ -98,9 +105,17 @@ intfacenetline=$(get_line $apinterface $netconf)
 prepend_everything_after $netconf $intfacenetline \#
 
 echo "allow-hotplug $apinterface" >> $netconf
+echo "\#auto $apinterface" >> $netconf
 echo "iface $apinterface inet static" >> $netconf
 echo " address $apipaddr" >> $netconf
 echo " netmask $apnetmask" >> $netconf
+
+# setup second interface to provide connectivity
+echo "allow-hotplug $seciface" >> $netconf
+echo "auto $seciface" >> $netconf 
+echo "iface $seciface inet dhcp" >> $netconf
+echo "	wpa-ssid \"$secssid\"" >> $netconf
+echo "	wpa-psk \"$secpassword\""
 
 # set up interface
 sudo ifconfig $apinterface $apipaddr
