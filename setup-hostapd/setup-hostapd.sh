@@ -220,7 +220,7 @@ prepend_everything_after $netconf $intfacenetline \#
 echo "allow-hotplug $apinterface" >> $netconf
 echo "iface $apinterface inet static" >> $netconf
 echo " address $apipaddr" >> $netconf
-echo " netmast $apnetmask" >> $netconf
+echo " netmask $apnetmask" >> $netconf
 
 # set up interface
 sudo ifconfig $apinterface $apipaddr
