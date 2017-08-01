@@ -6,6 +6,13 @@
 # include variables
 . ../var/variables.sh
 
+# check user privaleges
+priv=$(whoami)
+if [ "$priv" != "root" ]; then
+	echo "This script must be run as rvoot"
+	exit
+fi
+
 # replace lines in interface configs
 replace_line_string "auto $apinterface" $netconf "\#auto $apinterface"
 replace_line_string "iface $apinterface inet dhcp" $netconf "iface $apinterface inet static"

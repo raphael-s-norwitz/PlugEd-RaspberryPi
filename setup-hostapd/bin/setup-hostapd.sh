@@ -37,6 +37,12 @@
 #initdconf="/etc/init.d/hostapd"
 #sysctlconf="/etc/sysctl.conf"
 
+echo "This script sets up hostapd on a Raspberry pi 3. May work on other platforms too but no promises"
+echo "For more detailed instructions see: $instructions"
+sleep 1
+echo "NOTE: after installing dependencies, you will see a popup asking about ipv4 tables and ipv6 iptables. Just say yes to both :)"
+sleep 3
+
 # create backups
 dhcpconfbak="$dhcpconf.bak"
 iscdhcpconfbak="$iscdhcpconf.bak"
@@ -57,6 +63,7 @@ if [ "$priv" != "root" ]; then
 	exit
 fi
 
+echo "Installing dependencies.."
 # update system
 apt-get update -y
 # install dependencies
@@ -64,8 +71,9 @@ apt-get install -y hostapd isc-dhcp-server
 # CHECK THIS (may not work out the box)
 apt-get install -y --force-yes iptables-persistent
 
+echo "Modifying files"
 # backup dhcp configurations
-cp $dhcpconf $dhcpconf.bak
+cp $dhcpconf $dhcpconfbak
 cp $iscdhcpconf $iscdhcpconfbak
 cp $netconf $netconfbak
 cp $defaulthostapd $defaulthostapdbak
@@ -154,3 +162,7 @@ sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 
 # remove wpa-supplicant
 # sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/
+echo "Hostapd should be setup!"
+echo "Now run \"sudo reboot\" to reboot you'll machine"
+echo "After reboot, you should see the access point: $apssid"
+echo "And be able to associate with it with password $appass"
