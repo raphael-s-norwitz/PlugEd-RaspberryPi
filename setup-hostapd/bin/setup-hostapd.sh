@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # import functions
-. ./functions/functions.sh
+. ../functions/functions.sh
 
 # this script automates the setup process for hostapd on a raspberry pi 3
 
