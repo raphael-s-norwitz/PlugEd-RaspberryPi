@@ -17,12 +17,12 @@ There is also secssid and secpassword, which are the identifiers of a real Wi-Fi
 
 ## Setup
 
-Once you've set the variables, run ```sudo ./bin/setup-hostapd.sh```. Then reboot the system.
+Once you've set the variables, run ```sudo ./scripts/setup-hostapd.sh```. Then reboot the system.
 When it comes back on you should see the network up and running.
 
-If you want to connect back to a network, run ```sudo ./bin/disable_ap.sh``` and then reboot the device.
+If you want to connect back to a network, run ```sudo ./scripts/disable_ap.sh``` and then reboot the device.
 
-If you then want to turn the access point back on run ```sudo ./bin/reenable_ap.sh```
+If you then want to turn the access point back on run ```sudo ./scripts/reenable_ap.sh```
 
 
 That's basically it

@@ -15,7 +15,7 @@
 echo "This script sets up hostapd on a Raspberry pi 3. May work on other platforms too but no promises"
 echo "For more detailed instructions see: $instructions"
 sleep 1
-echo "NOTE: after installing dependencies, you will see a popup asking about ipv4 tables and ipv6 iptables. Just say yes to both :)"
+echo "NOTE: after installing dependencies, you will see a popup asking about ipv4 tables and ipv6 iptables. Just hit 'enter' twice :)"
 sleep 3
 
 # create backups
