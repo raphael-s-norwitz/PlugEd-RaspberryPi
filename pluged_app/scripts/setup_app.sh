@@ -8,17 +8,20 @@
 # assumes nginx is set up
 
 # setup dependencies
-sudo apt-get install -y python python-dev python-virtualenv pip supervisor
+sudo apt-get install -y python python-dev python-virtualenv python-pip supervisor
 
+cd ..
 workdir=$(pwd)
+
+# install requirements
+pip install -r ./requirements.txt
+
 env_name="$appname-env"
 
 # setup virtual environment (not sure how nessesary)
 mkdir $workdir/.virtualenvs && cd $workdir/.virtualenvs
 virtualenv $env_name
-source $workdir/.virtualenvs/pluged_dep/bin/activate
+source $workdir/.virtualenvs/$env_name/bin/activate
 
-# install requirements
-pip install -r ../requirements.txt
 
 
