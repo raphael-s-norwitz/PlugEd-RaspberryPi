@@ -28,9 +28,11 @@ pip install virtualenv
 env_name="$appname-env"
 
 # setup virtual environment (not sure how nessesary)
-#mkdir $workdir/.virtualenvs && cd $workdir/.virtualenvs
-#virtualenv $env_name
-#source $workdir/.virtualenvs/$env_name/bin/activate
+mkdir $workdir/.virtualenvs && cd $workdir/.virtualenvs
+virtualenv $env_name
+source $workdir/.virtualenvs/$env_name/bin/activate
+
+cd ..
 
 # install requirements
 pip install -r ./requirements.txt
