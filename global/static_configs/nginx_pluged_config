@@ -19,7 +19,7 @@ server {
     }
 
     location /static {
-        alias  /static/;
+        alias /static/;
         autoindex on;
     }
 }

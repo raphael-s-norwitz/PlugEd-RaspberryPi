@@ -16,24 +16,25 @@ then
 fi
 
 # install packages
-sudo apt-get install -y nginx
+#sudo apt-get install -y nginx
 
 # get browser (probably move elsewhere)
-wget -O ../static/WebBrowser.apk $browser_apk_link 
+#wget -O ../static/WebBrowser.apk $browser_apk_link 
 
 # get working directroy
+cd ..
 workdir=$(pwd)
 
 # remove nginx default sites-enabled
-rm /etc/nginx/sites-enabled/default
+#rm /etc/nginx/sites-enabled/default
 
 # setup nginx config
-cat ../../global/static_configs/nginx_pluged_config > $pgnginxconf
-replace_line_string "server_name ;" $pgnginxconf "servername $apipaddr;"
-replace_line_string "root name;" $pgnginxconf "root $workdir"
-replace_line_string "access_log /log/nginx/access.log;" $pgnginxconf "access_log $workdir/log/nginx/access.log;"
-replace_line_string "error_log /log/nginx/error.log;" $pgnginxconf "access_log $workdir/log/nginx/error.log;"
-replace_line_string "alias /static/;" $pgnginxconf "alias $workdir/static/;"
+cat ../global/static_configs/nginx_pluged_config > $pgnginxconf
+replace_line_string "server_name ;" $pgnginxconf "    server_name $apipaddr;"
+replace_line_string "root name;" $pgnginxconf "    root $workdir;"
+replace_line_string "access_log /logs/nginx/access.log;" $pgnginxconf "    access_log $workdir/logs/nginx/access.log;"
+replace_line_string "error_log /logs/nginx/error.log;" $pgnginxconf "    access_log $workdir/logs/nginx/error.log;"
+replace_line_string "alias /static/;" $pgnginxconf "	alias $workdir/static/;"
 
 mkdir -p $workdir/logs/nginx
 
