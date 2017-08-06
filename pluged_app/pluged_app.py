@@ -8,7 +8,7 @@ def pluged_homepage():
 	return render_template('pluged_page.html')
 
 @app.route('/kanav')
-def kalite_nav(ip="192.168.42.1", port=4848):
+def kalite_nav(ip="192.168.42.1", port=8008):
 	return redirect("http://" + ip + ":" + str(port), code=302)
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
