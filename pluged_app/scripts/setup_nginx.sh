@@ -12,21 +12,22 @@ root_val=$?
 if [ $root_val -eq 1 ]; 
 then
 	echo "This script must be run as root"
+	echo "Rerun as: sudo setup_nginx.sh"
 	exit
 fi
 
 # install packages
-#sudo apt-get install -y nginx
+sudo apt-get install -y nginx
 
 # get browser (probably move elsewhere)
-#wget -O ../static/WebBrowser.apk $browser_apk_link 
+wget -O ../static/WebBrowser.apk $browser_apk_link 
 
 # get working directroy
 cd ..
 workdir=$(pwd)
 
 # remove nginx default sites-enabled
-#rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-enabled/default
 
 # setup nginx config
 cat ../global/static_configs/nginx_pluged_config > $pgnginxconf
