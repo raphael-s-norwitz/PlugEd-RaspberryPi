@@ -2,10 +2,44 @@
 <html lang="en">
 <head>
 	<title>Welcome to PlugED!</title>
+	<style>
+body {
+	background-image: url("static/images/pluged_logo.jpg");
+}
+.button {
+	    background-color: #4CAF50; /* Green */
+	    border: none;
+	    color: white;
+	    padding: 15px 32px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+}
+.button1 {border-radius: 2px;}
+
+	</style>
+
 </head>
 <body>
-	<h1>Welcome to PlugED!</h1>
-	<img src="static/images/pluged_logo.jpg">
+	<h1 align="center">Welcome to PlugED!</h1>
+	<!-- <img src="static/images/pluged_logo.jpg"> -->
+	<div align="center">
+		<div align="center">
+			<form class="button button1" action="/kanav">
+				<input type="submit" value="Navigate to Kahn Academy Lite!"/>
+			</form>
+		</div>
+		
+		<div align="center">
+			<form class="button button1" action="/static/WebBrowser.apk">
+				<input type="submit" value="Download Web Browser"/>
+			</form>
+		</div>
+
+	</div>
 </body>
 </html>
 	
