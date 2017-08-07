@@ -36,8 +36,3 @@ nginxconfen="/etc/nginx/sites-enabled"
 
 supvisconf="/etc/supervisor/conf.d"
 
-# templates
-dhcpconftemplate="../templates/dhcp_subnet.txt"
-hostapdconftemplate="../templates/hostapdconf.txt"
-
-
