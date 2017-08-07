@@ -20,7 +20,7 @@ fi
 sudo apt-get install -y nginx
 
 # get browser (probably move elsewhere)
-wget -O ../static/WebBrowser.apk $browser_apk_link 
+#wget -O ../static/WebBrowser.apk $browser_apk_link 
 
 # get working directroy
 cd ..

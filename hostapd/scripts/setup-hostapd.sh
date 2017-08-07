@@ -26,6 +26,8 @@ hostapdconfbak="$hostapdconf.bak"
 defaulthostapdbak="$defaulthostapd.bak"
 initdconfbak="$initdconf.bak"
 sysctlconfbak="$sysctlconf.bak"
+hostconfsdnsbak="$hostconfsdns.bak"
+dnsmasqconfbak="$dnsmasqconf.bak"
 
 # check user privaleges
 priv=$(whoami)
@@ -38,7 +40,7 @@ echo "Installing dependencies.."
 # update system
 apt-get update -y
 # install dependencies
-apt-get install -y hostapd isc-dhcp-server
+apt-get install -y hostapd isc-dhcp-server dnsmasq
 # CHECK THIS (may not work out the box)
 apt-get install -y --force-yes iptables-persistent
 
@@ -50,6 +52,8 @@ cp $netconf $netconfbak
 cp $defaulthostapd $defaulthostapdbak
 cp $initdconf $initdconfbak
 cp $sysctlconf $sysctlconfbak
+cp $hostconfsdns $hostconfsdnsbak
+cp $dnsmasqconf $dnsmasqconfbak
 
 # swap lines for dhcp
 dhcprepone="option domain-name \"example.org\";"
@@ -72,6 +76,8 @@ replace_line_string "$dhcprepthree" $dhcpconf "$dhcprepthreeto"
 
 # append subnet to dhcpd.conf
 cat $dhcpconftemplate >> $dhcpconf
+replace_line_string "option domain-name \"local\"" $dhcpconf " option domain-name $apphostname;"
+replace_line_string "option domain-name-servers 8.8.8.8, 8.8.4.4" $dhcpconf " option domain-name-servers $apipaddr, 8.8.8.8, 8.8.4.4;"
 
 # add configurations to isc-dhcp-server
 replace_line_string $iscdhcprep $iscdhcpconf $iscdhcprepto
@@ -130,6 +136,17 @@ sudo iptables -A FORWARD -i $apinterface -o $frominterface -j ACCEPT
 
 # save iptables state
 sudo sh -c "iptables-save > /etc/iptables/rules.v4"
+
+# add hostname to hosts
+cat "$apipaddr	$apphostname" >> $hostconfsdns
+
+# add to dnsmasq conf
+echo "domain=$apphostname" >> $dnsmasqconf
+echo "resolv-file=/etc/resolv.dnsmasq" >> $dnsmasqconf
+echo "min-port=4096" >> $dnsmasqconf
+echo "server=8.8.8.8" >> $dnsmasqconf
+echo "sever=8.8.4.4" >> $dnsmasqconf
+
 
 # remove wpa-supplicant
 # sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service ~/

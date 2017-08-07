@@ -14,6 +14,7 @@ secssid="name_of_access_point"
 secpassword="passwordforssid"
 
 appname="pluged_app"
+apphostname="plug.ed"
 
 # links
 hostapd_instructions="https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi-access-point.pdf"
@@ -27,6 +28,8 @@ hostapdconf="/etc/hostapd/hostapd.conf"
 defaulthostapd="/etc/default/hostapd"
 initdconf="/etc/init.d/hostapd"
 sysctlconf="/etc/sysctl.conf"
+hostconfsdns="/etc/hosts"
+dnsmasqconf="/etc/dnsmasq.conf"
 
 nginxconfavail="/etc/nginx/sites-available"
 nginxconfen="/etc/nginx/sites-enabled"
