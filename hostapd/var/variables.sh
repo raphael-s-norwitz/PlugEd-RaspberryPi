@@ -2,7 +2,7 @@
 
 . ../../global/var/variables.sh
 
-dhcpconftemplate="../../static_configs/dhcp_subnet.txt"
-hostapdconftemplate="../../static_configs/hostapdconf.txt"
+dhcpconftemplate="../../global/static_configs/dhcp_subnet.txt"
+hostapdconftemplate="../../global/static_configs/hostapdconf.txt"
 
 

@@ -30,9 +30,13 @@ hostconfsdnsbak="$hostconfsdns.bak"
 dnsmasqconfbak="$dnsmasqconf.bak"
 
 # check user privaleges
-priv=$(whoami)
-if [ "$priv" != "root" ]; then
-	echo "This script must be run as rvoot"
+root_check
+root_val=$?
+
+if [ $root_val -eq 1 ];
+then
+	echo "This script must be run as root"
+	echo "Rerun as: sudo setup_hostapd.sh"
 	exit
 fi
 
@@ -41,7 +45,7 @@ echo "Installing dependencies.."
 apt-get update -y
 # install dependencies
 apt-get install -y hostapd isc-dhcp-server dnsmasq
-# CHECK THIS (may not work out the box)
+# install iptables
 apt-get install -y --force-yes iptables-persistent
 
 echo "Modifying files"
@@ -76,7 +80,7 @@ replace_line_string "$dhcprepthree" $dhcpconf "$dhcprepthreeto"
 
 # append subnet to dhcpd.conf
 cat $dhcpconftemplate >> $dhcpconf
-replace_line_string "option domain-name \"local\"" $dhcpconf " option domain-name $apphostname;"
+replace_line_string "option domain-name \"local\"" $dhcpconf " option domain-name \"$apphostname\";"
 replace_line_string "option domain-name-servers 8.8.8.8, 8.8.4.4" $dhcpconf " option domain-name-servers $apipaddr, 8.8.8.8, 8.8.4.4;"
 
 # add configurations to isc-dhcp-server
@@ -138,14 +142,14 @@ sudo iptables -A FORWARD -i $apinterface -o $frominterface -j ACCEPT
 sudo sh -c "iptables-save > /etc/iptables/rules.v4"
 
 # add hostname to hosts
-cat "$apipaddr	$apphostname" >> $hostconfsdns
+echo "$apipaddr	$apphostname" >> $hostconfsdns
 
 # add to dnsmasq conf
 echo "domain=$apphostname" >> $dnsmasqconf
 echo "resolv-file=/etc/resolv.dnsmasq" >> $dnsmasqconf
 echo "min-port=4096" >> $dnsmasqconf
 echo "server=8.8.8.8" >> $dnsmasqconf
-echo "sever=8.8.4.4" >> $dnsmasqconf
+echo "server=8.8.4.4" >> $dnsmasqconf
 
 
 # remove wpa-supplicant

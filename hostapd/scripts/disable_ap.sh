@@ -10,9 +10,13 @@
 . ../var/variables.sh
 
 # check user privaleges
-priv=$(whoami)
-if [ "$priv" != "root" ]; then
-	echo "This script must be run as rvoot"
+root_check
+root_val=$?
+
+if [ $root_val -eq 1 ];
+then
+	echo "This script must run as root"
+	echo "rerun as: sudo disable_ap.sh"
 	exit
 fi
 
