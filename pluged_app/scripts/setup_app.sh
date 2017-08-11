@@ -33,12 +33,13 @@ virtualenv $env_name
 source $workdir/.virtualenvs/$env_name/bin/activate
 
 
-# install requirements
-pip install -r ./requirements.txt
-
+## install requirements
 pgsupviconf="$supvisconf/pluged_app.conf"
 
+# install dependencies
 pip install supervisor
+pip install gunicorn
+pip install flask
 
 # setup supervisor
 cat ../global/static_configs/supervisor_config.conf > $pgsupviconf
