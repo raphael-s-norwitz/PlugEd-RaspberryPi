@@ -28,7 +28,8 @@ pip install virtualenv
 env_name="$appname-env"
 
 # setup virtual environment (not sure how nessesary)
-mkdir $workdir/.virtualenvs && cd $workdir/.virtualenvs
+mkdir $workdir/.virtualenvs
+cd $workdir/.virtualenvs
 virtualenv $env_name
 source $workdir/.virtualenvs/$env_name/bin/activate
 
@@ -42,7 +43,7 @@ pip install gunicorn
 pip install flask
 
 # setup supervisor
-cat ../global/static_configs/supervisor_config.conf > $pgsupviconf
+cat $workdir/../global/static_configs/supervisor_config.conf > $pgsupviconf
 replace_line_string "[program: ]" $pgsupviconf "[program:pluged_app]"
 replace_line_string "command = /bin/gunicorn" $pgsupviconf "command = $workdir/.virtualenvs/$env_name/bin/gunicorn pluged_app:app"
 replace_line_string "directory =" $pgsupviconf "directory = $workdir"
