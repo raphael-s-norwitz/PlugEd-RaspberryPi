@@ -32,12 +32,13 @@ mkdir $workdir/.virtualenvs && cd $workdir/.virtualenvs
 virtualenv $env_name
 source $workdir/.virtualenvs/$env_name/bin/activate
 
-cd ..
 
 # install requirements
 pip install -r ./requirements.txt
 
 pgsupviconf="$supvisconf/pluged_app.conf"
+
+pip install supervisor
 
 # setup supervisor
 cat ../global/static_configs/supervisor_config.conf > $pgsupviconf
