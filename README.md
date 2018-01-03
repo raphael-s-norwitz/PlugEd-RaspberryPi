@@ -13,7 +13,7 @@ TBD (Lindo and Orinea?)
 `pluged_app/` contains the code for our flask application and our nginx, gunicorn, and supervisor production environment.
 
 ## Rough Setup instructions
-First run `sudo raspi-config`to change password and enable ssh. Then check that the keyboard is working properly, and update keyboard settings accordingly. Also download the WebBrowser.apk and put it in `pluged_app/static`. Also go to the `global/` directory. It's important that you set the `secssid` and `secpassword`to the SSID and password of the Wi-Fi network you'd like the Pi to access for internet, if any.
+First run `sudo raspi-config`to change password and enable ssh. Of course if you are setting up on a clean raspberry pi, you will need to first connect to the internet (which can be done via command line or by clicking the networking icon in the top right corner of the screen), and clone this repository with the command `git clone https://github.com/raphael-s-norwitz/PlugEd-RaspberryPi/`. Then check that the keyboard is working properly, and update keyboard settings accordingly. Also download the WebBrowser.apk and put it in `pluged_app/static`. Also go to the `global/` directory. It's important that you set the `secssid` and `secpassword`to the SSID and password of the Wi-Fi network you'd like the Pi to access for internet, if any.
 
 Then download KA-lite, and set it up. There are instructions in the `kalite/` directory, but you can do it any way you want.
 
