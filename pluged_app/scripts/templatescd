@@ -1,5 +1,5 @@
 <html>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <head>
 <title>Home</title>
 
@@ -8,7 +8,7 @@
 
 <body>
 	<!--Insert the PlugEd Logo & Home button-->	
-	<form action="/">	
+	<form action="/homepage">	
 	<center><button class="home"></button></center>
 	
 	</form>
@@ -17,7 +17,7 @@
 		<button class="accordion">Khan Academy Lite</button>
 	</form>
 	
-	<!--Insert a plain button which will redirect the user to our AboutUs Page-->
+	<!--Insert a plain button which will redirect the user to our About US-->
 	<form action="/about">	
 		<button class="accordion">About Us</button>
 	</form>

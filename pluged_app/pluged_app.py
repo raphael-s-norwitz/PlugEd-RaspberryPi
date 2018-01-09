@@ -3,17 +3,17 @@ from flask import Flask, render_template, redirect
 from werkzeug.contrib.fixers import ProxyFix
 app = Flask(__name__)
 
-@app.route('/homepage')
-def HomePage():
-	return render_template('/templates/HomePage.html')
+@app.route('/')
+def pluged_homepage():
+	return render_template('HomePage.html')
+
+@app.route('/about')
+def about():
+        return render_template('AboutUs.html')
 
 @app.route('/kanav')
 def kalite_nav(ip="192.168.42.1", port=8008):
 	return redirect("http://" + ip + ":" + str(port), code=302)
-
-@app.route('/about')
-def About():
-	return render_template('/templates/AboutUs.html')
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 app.debug = bool(os.environ.get('PRODUCTION'))
