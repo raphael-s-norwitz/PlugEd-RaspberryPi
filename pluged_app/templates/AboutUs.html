@@ -1,0 +1,112 @@
+<html>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<title>About</title>
+
+</head>
+
+
+<body>
+	<!--Insert the PlugEd Logo & Home button-->	
+	<form action="/">	
+	<center><button class="home"></button></center>
+	</form>
+	
+	<button class="accordion">Why we do it</button>
+	<div class="panel">
+	  <p>We believe that access to information should be free</p>
+	</div>
+
+	<button class="accordion">How we do it</button>
+	<div class="panel">
+	  <p>We bring educational content to you data-free through a devicee</p>
+	</div>
+
+	<button class="accordion">What we do</button>
+	<div class="panel">
+	  <p>We make content available offline for people without data to access</p>
+	</div> 
+
+<button class="accordion">Meet the team!</button>
+	<div class="panel">
+	<h3></h3>
+<center><img src="../static/images/1lindo.jpeg" position=absolute align="center" alt="Photo of Lindo"  style="width:100px;height:100px;"></center>
+	  <h4>Lindokuhle Shongwe</h4>
+	  <h5>BSc in Electrical Engineering</h5>
+	
+	  
+<center><img src= "../static/images/raphael.jpg" position=absolute align="center" alt="Photo of Raphael" style="width:100px;height:100px"></center>
+	<h4>Raphael Norwitz</h4>
+	<h5>MSc Machine Learning</h5>
+
+<center><img src="../static/images/1orinea.jpeg" position=absolute align="center" alt="Photo of Orinea"  style="width:100px;height:100px;"></center>
+	  <h4>Orinea Tshivhenga</h4>
+	  <h5>BBusSc Analytics</h5>
+	
+	</div> 
+
+
+</body>
+</html>
+
+<style>
+	body {
+		  background-color:#F5F8F9 ;
+		  font-family:courier;
+		  text-align: center;
+ 		  	
+	     }
+	.accordion {
+  		  background-color: #ccc;
+	          color: #444;
+ 	          cursor: pointer;
+ 	          padding: 18px;	
+   	          width: 100%;
+  		  text-align: center;
+  		  border: none;
+  		  outline: none;
+   		  font-family:courier;
+		  transition: 0.4s;
+	           }
+	.active, .accordion:hover {
+	          background-color: #35C142;
+				   }
+		.home{
+		background: url(../static/images/Home_Button.jpg) 0 0 transparent;
+		height: 200px;
+		width: 200px;
+		border: none;
+		
+		}
+	.panel {
+	          padding: 0 18px;
+                  background-color: #F5F8F9;
+                  display: none
+               }
+	img  {
+		border-radius: 50%;
+	      }
+</style>
+
+<script>
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+
+	for (i = 0; i < acc.length; i++) {
+   		 acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+       		 this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+      	        var panel = this.nextElementSibling;
+       	       if (panel.style.display === "block") {
+               panel.style.display = "none";
+        	 } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
+
+

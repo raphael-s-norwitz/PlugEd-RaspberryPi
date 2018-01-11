@@ -5,7 +5,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def pluged_homepage():
-	return render_template('pluged_page.html')
+	return render_template('HomePage.html')
+
+@app.route('/about')
+def about():
+        return render_template('AboutUs.html')
 
 @app.route('/kanav')
 def kalite_nav(ip="192.168.42.1", port=8008):

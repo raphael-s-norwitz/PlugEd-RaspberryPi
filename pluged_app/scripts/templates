@@ -1,0 +1,100 @@
+<html>
+
+<head>
+<title>Home</title>
+
+</head>
+
+
+<body>
+	<!--Insert the PlugEd Logo & Home button-->	
+	<form action="/homepage">	
+	<center><button class="home"></button></center>
+	
+	</form>
+	<!--Insert drop down button which reveals further buttons linking t our partners-->
+	<form action="/kanav">
+		<button class="accordion">Khan Academy Lite</button>
+	</form>
+	
+	<!--Insert a plain button which will redirect the user to our About US-->
+	<form action="/about">	
+		<button class="accordion">About Us</button>
+	</form>
+
+</body>
+</html>
+
+<style>
+	body {
+		  background-color:#F5F8F9 ;
+		  font-family:courier;
+		  text-align: center;
+ 		  	
+	     }
+
+	.button {
+	    background-color: #4CAF50; /* Green */
+	    border: none;
+	    color: none;
+	    padding: 15px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+	    border-radius: 50%
+		}
+	.home{
+		background: url(../static/images/Home_Button.jpg) 0 0 transparent;
+		height: 200px;
+		width: 200px;
+		border: none;
+		
+		}
+	
+
+	.accordion {
+  		  background-color: #ccc;
+	          color: #444;
+ 	          cursor: pointer;
+ 	          padding: 18px;	
+   	          width: 100%;
+  		  text-align: center;
+  		  border: none;
+  		  outline: none;
+   		  font-family:courier;
+		  transition: 0.4s;
+	           }
+	.active, .accordion:hover {
+	          background-color: #35C142;
+				   }
+	.panel {
+	          padding: 0 18px;
+                  background-color: #F5F8F9;
+                  display: none
+               }
+</style>
+
+<script>
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+
+	for (i = 0; i < acc.length; i++) {
+   		 acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+       		 this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+      	        var panel = this.nextElementSibling;
+       	       if (panel.style.display === "block") {
+               panel.style.display = "none";
+        	 } else {
+            panel.style.display = "block";
+        }
+    });
+}
+</script>
+
