@@ -1,10 +1,11 @@
 # PlugED's Raspberry Pi Setup
 
-## What is this?
-This repository contains code to setup a local offline network using a raspberry pi, which also doubles as Kahn Academy Lite server. Right now we plan to start using it to share educational materials in schools and elsewhere.
-
 ## What is PlugED?
-TBD (Lindo and Orinea?)
+Our mission is to make educational materials accessible to everyone.
+
+We have developed an open-source solution which will enable people to setup a local offline network using a raspberry pi which can also be used as a data repository for multimedia content in remote areas. Participants can easily access the materials on the device by connectin to the WiFi Hotspot (PlUGED_AP) and searching on (plug.ed/) using a general web broswer.
+
+As stated before, our goal is to make educational materials accessible to everyone, we therefore encourage NGOs, Organisations, EdTech startups etc within the space to make use of our repo, contribute and most importantly share information to all who can benefit from it.
 
 ## How is the code structured?
 `global/` contains functions and variables which are shared among all programs we run.
