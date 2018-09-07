@@ -1,11 +1,14 @@
 # PlugED's Raspberry Pi Setup
 
-## What is PlugED?
-Our mission is to make educational materials accessible to everyone.
+# What is this?
 
-We have developed an open-source solution which will enable people to setup a local offline network using a raspberry pi which can also be used as a data repository for multimedia content in remote areas. Participants can easily access the materials on the device by connectin to the WiFi Hotspot (PlUGED_AP) and searching on (plug.ed/) using a general web broswer.
+This repo presents an open-source solution which allows anyone with a Wi-Fi enabled raspberry pi to easily setup a data repository for offline storage and distribution of multimedia content. We aim to help those who want to make online educational, medical or other socially valuable resources available to their communities, but live in areas where broadband resources are expensive or inaccessable.
 
-As stated before, our goal is to make educational materials accessible to everyone, we therefore encourage NGOs, Organisations, EdTech startups etc within the space to make use of our repo, contribute and most importantly share information to all who can benefit from it.
+After the setup procedure, anyone can access the materials on the device by connecting to the WiFi Hotspot the device creates on boot up (PlUGED_AP) and searching on (plug.ed/) using a general web broswer. As is, the setup scripts automate the process of turning a raspberry pi into a Wi-Fi hotspot on boot. Then, different servers running on the pi and will be made available to connected devices via the hotspot. As an example, we have written the setup scripts for the Kahn Academy Lite application, as developed by the NGO Learning Equality. This resource includes educational videos and games taken directly from Kahn academy. 
+
+The model of an offline platform for storing and distributing content is not new, especially to the South African context. These start-ups provide preconfigured boxes with selected educational content already loaded. Some may be more or less configurable, have xyz features...etc, but in the end there is no reason anyone should have to pay more than the baseline cost of a raspberry pi to run such a service. Further we have noticed that startups who focus on producing educational content waste time setting up their own boxes to distribute their content. We hope this helps disadvantaged people immidiately get Khan academy resources into the hands of their children without needing to pay a premium from one of these startups, and/or helps those producing educational content to seamlessly make their work available to offline communities.
+
+We encourage NGOs, Schools, Health Centers, EdTech startups, or anyone who wants to share information offline to clone, fork and build on this solution. Contributions would be very welcome!
 
 ## How is the code structured?
 `global/` contains functions and variables which are shared among all programs we run.
