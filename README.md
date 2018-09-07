@@ -1,4 +1,4 @@
-# PlugED's Raspberry Pi Setup
+# PlugED Raspberry Pi
 
 # What is this?
 
@@ -37,3 +37,6 @@ https://www.raspberrypi.org/forums/viewtopic.php?t=46154
 ### nginx, gunicorn, supervisor, flask
 http://alexandersimoes.com/hints/2015/10/28/deploying-flask-with-nginx-gunicorn-supervisor-virtualenv-on-ubuntu.html
 https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps
+
+### Kahn Academy Lite
+https://learningequality.org/ka-lite/
